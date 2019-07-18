@@ -106,7 +106,31 @@ if __name__ == '__main__':
 
             # TODO ensure it only does this when someone is hailing a taxi.
             # That is, an arm is above their head.
-            hail_taxi(image)
+            for pose in POSE_COCO_BODY_PARTS[4]:
+                pose = int(pose)
+                for pose_LEye in POSE_COCO_BODY_PARTS[14]:
+                    pose_LEye = int(pose_LEye)
+                    if pose > pose_LEye:
+                        hail_taxi(image)
+                        break
+                for pose_REye in POSE_COCO_BODY_PARTS[15]:
+                    pose_REye = int(pose_REye)
+                    if pose > pose_REye:
+                        hail_taxi(image) 
+                        break
+
+            for pose_2 in POSE_COCO_BODY_PARTS[4]:
+                pose_2 = int(pose_2)
+                for pose_LEye in POSE_COCO_BODY_PARTS[14]:
+                    pose_LEye = int(pose_LEye)
+                    if pose_2 > pose_LEye:
+                        hail_taxi(image)
+                        break
+                for pose_REye in POSE_COCO_BODY_PARTS[15]:
+                    pose_REye = int(pose_REye)
+                    if pose_2 > pose_REye:
+                        hail_taxi(image) 
+                        break
 
             # Debugging statement: remove before demonstration.
             print([(POSE_COCO_BODY_PARTS[k], v.x, v.y) for k,v in human.body_parts.items()])
