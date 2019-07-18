@@ -103,31 +103,39 @@ if __name__ == '__main__':
         # feed image into the neural network
         humans = e.inference(image)  # list of humans
         for id, human in enumerate(humans):
+            def not_number_rejector(message):
+                items = message
+                while True:
+                    try:
+                        input_number = int()
+                        return input_number
+                    except:
+                        pass
 
             # TODO ensure it only does this when someone is hailing a taxi.
             # That is, an arm is above their head.
             for pose in POSE_COCO_BODY_PARTS[4]:
-                pose = int(pose)
+                pose = not_number_rejector(pose)
                 for pose_LEye in POSE_COCO_BODY_PARTS[14]:
-                    pose_LEye = int(pose_LEye)
+                    pose_LEye = not_number_rejector(pose_LEye)
                     if pose > pose_LEye:
                         hail_taxi(image)
                         break
                 for pose_REye in POSE_COCO_BODY_PARTS[15]:
-                    pose_REye = int(pose_REye)
+                    pose_REye = not_number_rejector(pose_REye)
                     if pose > pose_REye:
                         hail_taxi(image) 
                         break
 
             for pose_2 in POSE_COCO_BODY_PARTS[4]:
-                pose_2 = int(pose_2)
+                pose_2 = not_number_rejector(pose_2)
                 for pose_LEye in POSE_COCO_BODY_PARTS[14]:
-                    pose_LEye = int(pose_LEye)
+                    pose_LEye = not_number_rejector(pose_LEye)
                     if pose_2 > pose_LEye:
                         hail_taxi(image)
                         break
                 for pose_REye in POSE_COCO_BODY_PARTS[15]:
-                    pose_REye = int(pose_REye)
+                    pose_REye = not_number_rejector(pose_REye)
                     if pose_2 > pose_REye:
                         hail_taxi(image) 
                         break
