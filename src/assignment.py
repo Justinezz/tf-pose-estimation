@@ -114,6 +114,8 @@ if __name__ == '__main__':
 
             # TODO ensure it only does this when someone is hailing a taxi.
             # That is, an arm is above their head.
+            for k,v in human.body_parts.items():
+                print(k, v.x, v.y)
             for k,v1 in human.body_parts.items():
                 v1.y = not_number_rejector(v1)
                 for k,v in human.body_parts.items():
@@ -127,26 +129,15 @@ if __name__ == '__main__':
                     else:
                         print(v1.y, "Hello", pose_LEye)
                         print("I can't see your hands~")
-                for pose_REye in POSE_COCO_BODY_PARTS[15]:
+                for k,v in human.body_parts.items():
+                    def pose_REye():
+                        v.y = pose_REye
                     pose_REye = not_number_rejector(pose_REye)
-                    if pose > pose_REye:
+                    if v1.y > pose_REye:
                         hail_taxi(image) 
                         break
                     else:
                         print("Where is your hand?")
-
-            for pose_2 in POSE_COCO_BODY_PARTS[4]:
-                pose_2 = not_number_rejector(pose_2)
-                for pose_LEye in POSE_COCO_BODY_PARTS[14]:
-                    pose_LEye = not_number_rejector(pose_LEye)
-                    if pose_2 > pose_LEye:
-                        hail_taxi(image)
-                        break
-                for pose_REye in POSE_COCO_BODY_PARTS[15]:
-                    pose_REye = not_number_rejector(pose_REye)
-                    if pose_2 > pose_REye:
-                        hail_taxi(image) 
-                        break
 
             # Debugging statement: remove before demonstration.
             print([(POSE_COCO_BODY_PARTS[k], v.x, v.y) for k,v in human.body_parts.items()])
