@@ -103,41 +103,34 @@ if __name__ == '__main__':
         # feed image into the neural network
         humans = e.inference(image)  # list of humans
         for id, human in enumerate(humans):
-            def not_number_rejector(message):
-                items = message
-                while True:
-                    try:
-                        input_number = int()
-                        return input_number
-                    except:
-                        pass
+            
 
             # TODO ensure it only does this when someone is hailing a taxi.
             # That is, an arm is above their head.
+           # for k,v in human.body_parts.items():
+            #    print(v)
+
+            LWrist = 5000
+            RWrist = 5000
+            REye = 5000
+            LEye = 5000
             for k,v in human.body_parts.items():
-                print(k, v.x, v.y)
-            for k,v1 in human.body_parts.items():
-                v1.y = not_number_rejector(v1)
-                for k,v in human.body_parts.items():
-                    k = 14
-                    def pose_LEye():
-                        v.y = pose_LEye
-                    pose_LEye = not_number_rejector(pose_LEye)
-                    if v1.y > pose_LEye:
-                        hail_taxi(image)
-                        break
-                    else:
-                        print(v1.y, "Hello", pose_LEye)
-                        print("I can't see your hands~")
-                for k,v in human.body_parts.items():
-                    def pose_REye():
-                        v.y = pose_REye
-                    pose_REye = not_number_rejector(pose_REye)
-                    if v1.y > pose_REye:
-                        hail_taxi(image) 
-                        break
-                    else:
-                        print("Where is your hand?")
+                if k == 7:
+                    LWrist = v.y
+                elif k == 4:
+                    RWrist = v.y
+                elif k == 14:
+                    REye = v.y
+                elif k == 15:
+                    LEye = v.y
+                    
+            
+            if LWrist < REye or LWrist < LEye or RWrist < REye or RWrist < LEye:
+                hail_taxi(image)
+            else:
+                print("I can't see your hands~")
+
+    
 
             # Debugging statement: remove before demonstration.
             print([(POSE_COCO_BODY_PARTS[k], v.x, v.y) for k,v in human.body_parts.items()])
